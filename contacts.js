@@ -1,11 +1,8 @@
-const fs = require("node:fs/promises");
-const path = require("node:path");
+const fs = require("fs/promises");
+const path = require("path");
 const { nanoid } = require("nanoid");
 
-const contactsPath = path.format({
-  dir: "D:\\GO IT\\Homework\\NODE.JS\\Homework-01\\goit-node-hw-01\\db",
-  base: "contacts.json",
-});
+const contactsPath = path.join(__dirname, "db/contacts.json");
 
 async function listContacts() {
   const allContacts = await fs.readFile(contactsPath);
@@ -23,6 +20,11 @@ async function removeContact(contactId) {
   const removedContactindex = allContacts.findIndex(
     (contact) => contact.id === contactId
   );
+
+  if (removedContactindex === -1) {
+    return console.log(null);
+  }
+
   const [removedContact] = allContacts.splice(removedContactindex, 1);
 
   await fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
