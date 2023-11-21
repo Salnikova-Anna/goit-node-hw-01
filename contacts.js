@@ -12,7 +12,7 @@ async function listContacts() {
 async function getContactById(contactId) {
   const allContacts = await listContacts();
   const contactByID = allContacts.find((contact) => contact.id === contactId);
-  return console.log(contactByID || null);
+  return contactByID || null;
 }
 
 async function removeContact(contactId) {
@@ -28,7 +28,7 @@ async function removeContact(contactId) {
   const [removedContact] = allContacts.splice(removedContactindex, 1);
 
   await fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
-  return console.log(removedContact);
+  return removedContact;
 }
 
 async function addContact(name, email, phone) {
@@ -41,7 +41,7 @@ async function addContact(name, email, phone) {
   };
   allContacts.push(newContact);
   await fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
-  return console.log(newContact);
+  return newContact;
 }
 
 module.exports = {
